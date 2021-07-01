@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Pegawai;
+use App\Models\PengajuanCuti;
+use App\Models\PengajuanLembur;
+use DataTables;
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        if($request->ajax())
+        {
+            $pegawais = Pegawai::all();
+            return DataTables::of($pegawais)
+                ->addIndexColumn()
+                ->editColumn('unit_kerja_id', function($row) {
+                    return $row->unit_kerja->nama_unit;
+                })
+                ->editColumn('jabatan_id', function($row) {
+                    return $row->jabatan->nama_jabatan;
+                })
+                ->editColumn('status_pegawai_id', function($row) {
+                    return $row->status_pegawai->nama_status;
+                })
+                ->rawColumns([]) 
+                ->make(true);
+        }
+
+        $total_pegawai = $this->total_pegawai();
+        $total_pengajuan_cuti = $this->total_pengajuan_cuti();
+        $total_pengajuan_lembur = $this->total_pengajuan_lembur();
+
+        $perintah_lembur = $this->cek_perintah_lembur();
+
+        return view('dashboard',compact(
+            'total_pegawai',
+            'total_pengajuan_cuti',
+            'total_pengajuan_lembur',
+            'perintah_lembur'
+        ));
+    }
+
+    public function total_pegawai()
+    {
+        $count = Pegawai::count();
+        return $count;
+    }
+
+    public function total_pengajuan_cuti()
+    {
+        $count = PengajuanCuti::count();
+        return $count;
+    }
+
+    public function total_pengajuan_lembur()
+    {
+        $count = PengajuanLembur::count();
+        return $count;
+    }
+
+    public static function cek_perintah_lembur()
+    {
+        $pegawai_id = Pegawai::where('user_id', auth()->user()->id)->first();
+
+        $perintah_lembur = PengajuanLembur::join('pengajuan_lembur_details','pengajuan_lembur_details.pengajuan_lembur_id','pengajuan_lemburs.id')
+        ->where('pegawai_id',$pegawai_id->id)
+        ->where('is_finish', 0)
+        ->orderBy('pengajuan_lembur_details.id', 'desc')
+        ->first();
+
+        return $perintah_lembur;
+    }
+}
