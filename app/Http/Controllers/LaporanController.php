@@ -44,7 +44,10 @@ class LaporanController extends Controller
         $pdf->save($path.'/'.$filename);
 
         $pdf = public_path('pdf/'.$filename);
-        return response()->download($pdf);
+        return response()->make(file_get_contents($pdf), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
     }
 
     public function print_lembur($unit_kerja_id = null, $tgl_pengajuan = null)

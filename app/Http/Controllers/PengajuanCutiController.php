@@ -89,7 +89,7 @@ class PengajuanCutiController extends Controller
                             return $row->jenis_cuti->nama_jenis;
                         })
                         ->editColumn('jenis_cuti_extra_id', function($row) {
-                            return $row->jenis_cuti_extra->nama_jenis_extra;
+                            return ($row->jenis_cuti_extra == null) ? '': $row->jenis_cuti_extra->nama_jenis_extra;
                         })
                         ->editColumn('bank_legacy_id', function($row) {
                             return $row->bank_legacy->nama_bank_legacy;
@@ -146,6 +146,7 @@ class PengajuanCutiController extends Controller
                 return back()->with('failed', 'Total Cuti anda melebihi sisa cuti');
             }
 
+dd($request->jenis_cuti_extra_id);
             $post = PengajuanCuti::create([
                 'kode_pengajuan'                    => 'PC-'.round(microtime(true) * 1000),
                 'pegawai_id'                        => $request->pegawai_id,
@@ -159,8 +160,8 @@ class PengajuanCutiController extends Controller
                 'alamat_lengkap_selama_cuti'        => $request->alamat_lengkap_selama_cuti,
                 'no_hp_selama_cuti'                 => $request->no_hp_selama_cuti,
                 'keterangan'                        => $request->keterangan,
-                'jenis_cuti_extra_id'               => $request->jenis_cuti_extra_id,
-                'tgl_mulai_extra_cuti'              => $request->tgl_mulai_extra_cuti,
+                'jenis_cuti_extra_id'               => ($request->jenis_cuti_extra_id == 0) ? null : $request->jenis_cuti_extra_id,
+                'tgl_mulai_extra_cuti'              => ($request->tgl_mulai_extra_cuti == null) ? null: $request->tgl_mulai_extra_cuti,
                 'alamat_lengkap_extra_selama_cuti'  => $request->alamat_lengkap_extra_selama_cuti,
                 'no_hp_extra_selama_cuti'           => $request->no_hp_extra_selama_cuti,
                 'keterangan_extra'                  => $request->keterangan_extra,

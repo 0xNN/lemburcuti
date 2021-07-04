@@ -165,6 +165,7 @@
 
       $('body').on('click', '.edit-post', function () {
         var data_id = $(this).data('id');
+        
         $.get('pegawai/' + data_id + '/edit', function (data) {
           $('#modal-judul').html("Edit Post");
           $('#tombol-simpan').val("edit-post");
@@ -183,6 +184,7 @@
           $(`select#jabatan_id option[value='${data.jabatan_id}']`).attr('selected','selected');
           $(`select#jurusan_id option[value='${data.jurusan_id}']`).attr('selected','selected');
           $(`select#penempatan_id option[value='${data.penempatan_id}']`).attr('selected','selected');
+          $(`select#status_pegawai_id option[value='${data.status_pegawai_id}']`).attr('selected', 'selected');
           $('select#user_id').append(`<option value="${data.user_id}" selected>${data.name}</option>`);
         })
       });

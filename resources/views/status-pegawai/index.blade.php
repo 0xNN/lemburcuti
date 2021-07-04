@@ -1,7 +1,7 @@
-@extends('layouts.app', ['activePage' => 'jenis-cuti-extra', 'titlePage' => __('Jenis Cuti Extra')])
+@extends('layouts.app', ['activePage' => 'status-pegawai', 'titlePage' => __('Status Pegawai')])
 
 @section('content')
-@include('jenis-cuti-extra.modal')
+@include('status-pegawai.modal')
 <div class="content">
   <div class="container-fluid">
     @if (Session::has('success'))
@@ -16,19 +16,18 @@
       <div class="col-md-12">
         <div class="card ">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">{{ __('Jenis Cuti Extra') }}</h4>
-            <p class="card-category">{{ __('Daftar Jenis Cuti Extra') }}</p>
+            <h4 class="card-title">{{ __('Status Pegawai') }}</h4>
+            <p class="card-category">{{ __('Daftar Status Pegawai') }}</p>
             <a href="javascript:void(0)" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm" id="tombol-utama">
               <i class="material-icons">add</i>
             </a>
           </div>
           <div class="card-body ">              
-            <table id="dt-jenis-extra" class="table table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <table id="dt-status-pegawai" class="table table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nama Jenis Extra</th>
-                  <th>Digunakan oleh?</th>
+                  <th>Nama Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -46,7 +45,7 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">        
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 @endpush
 
 @push('js')
@@ -62,15 +61,14 @@
   });
 
   $(document).ready(function() {
-    var table = $('#dt-jenis-extra').DataTable({
+    var table = $('#dt-status-pegawai').DataTable({
       responsive: true,
       processing: true,
       serverSide: true,
-      ajax: "{{ route('jenis_cuti_extra.index') }}",
+      ajax: "{{ route('status_pegawai.index') }}",
       columns: [
         {data: 'id', name: 'id'},
-        {data: 'nama_jenis_extra', name: 'nama_jenis_extra'},
-        {data: 'is_accepted', name: 'is_accepted'},
+        {data: 'nama_status', name: 'nama_status'},
         {data: 'action', name: 'action', orderable: false, searchable: false},
       ],
       columnDefs: [ {
@@ -97,14 +95,14 @@
               $.ajax({
                   data: $('#form-tambah-edit')
                       .serialize(), //function yang dipakai agar value pada form-control seperti input, textarea, select dll dapat digunakan pada URL query string ketika melakukan ajax request
-                  url: "{{ route('jenis_cuti_extra.store') }}", //url simpan data
+                  url: "{{ route('status_pegawai.store') }}", //url simpan data
                   type: "POST", //karena simpan kita pakai method POST
                   dataType: 'json', //data tipe kita kirim berupa JSON
                   success: function (data) { //jika berhasil
                       $('#form-tambah-edit').trigger("reset"); //form reset
                       $('#addUtamaModal').modal('hide'); //modal hide
                       $('#tombol-simpan').html('Simpan'); //tombol simpan
-                      var oTable = $('#dt-jenis-extra').dataTable(); //inialisasi datatable
+                      var oTable = $('#dt-status-pegawai').dataTable(); //inialisasi datatable
                       oTable.fnDraw(false); //reset datatable
                       iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
                           title: 'Data Berhasil Disimpan',
@@ -123,19 +121,13 @@
     
     $('body').on('click', '.edit-post', function () {
       var data_id = $(this).data('id');
-      $.get('jenis_cuti_extra/' + data_id + '/edit', function (data) {
+      $.get('status_pegawai/' + data_id + '/edit', function (data) {
         $('#modal-judul').html("Edit Post");
         $('#tombol-simpan').val("edit-post");
         $('#addUtamaModal').modal('show');
         //set value masing-masing id berdasarkan data yg diperoleh dari ajax get request diatas
         $('#id').val(data.id);
-        $('#nama_jenis_extra').val(data.nama_jenis_extra);
-        if(data.is_accepted == 1)
-        {
-          $('#is_accepted').attr('checked', true);
-        } else {
-          $('#is_accepted').attr('checked', false);
-        }
+        $('#nama_status').val(data.nama_status);
       })
     });
 
@@ -145,7 +137,7 @@
     });
 
     $('#tombol-utama-hapus').click(function () {
-      var url = "{{ route('jenis_cuti_extra.destroy', ":dataId") }}";
+      var url = "{{ route('status_pegawai.destroy', ":dataId") }}";
       url = url.replace(':dataId', dataId);
       $.ajax({
         url: url, //eksekusi ajax ke url ini
@@ -156,7 +148,7 @@
         success: function (data) { //jika sukses
           setTimeout(function () {
             $('#deleteUtamaModal').modal('hide'); //sembunyikan konfirmasi modal
-            var oTable = $('#dt-jenis-extra').dataTable();
+            var oTable = $('#dt-status-pegawai').dataTable();
             oTable.fnDraw(false); //reset datatable
           });
           iziToast.warning({ //tampilkan izitoast warning
@@ -168,5 +160,5 @@
       })
     });
   })
-</script> 
+</script>
 @endpush

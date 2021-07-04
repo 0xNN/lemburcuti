@@ -27,7 +27,7 @@ class CreatePegawaisTable extends Migration
             $table->smallInteger('jurusan_id');
             $table->smallInteger('jabatan_id');
             $table->smallInteger('penempatan_id');
-            $table->smallInteger('status_oegawai_id');
+            $table->smallInteger('status_pegawai_id');
             $table->smallInteger('user_id');
             $table->timestamps();
         });

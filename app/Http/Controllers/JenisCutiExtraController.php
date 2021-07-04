@@ -27,7 +27,14 @@ class JenisCutiExtraController extends Controller
 
                         return $button;
                     })
-                    ->rawColumns(['action'])
+                    ->editColumn('is_accepted', function($row) {
+                        if($row->is_accepted == 0) {
+                            return '<span class="badge badge-danger">Pegawai Tetap</span>';
+                        } else {
+                            return '<span class="badge badge-success">Pegawai Kontrak</span>';
+                        }
+                    })
+                    ->rawColumns(['action','is_accepted'])
                     ->make(true);
         }
         return view('jenis-cuti-extra.index');
@@ -53,8 +60,11 @@ class JenisCutiExtraController extends Controller
     {
         $id = $request->id;
 
+        $cek = $request->has('is_accepted') ? 1: 0;
+
         $post = JenisCutiExtra::updateOrCreate(['id' => $id],[
             'nama_jenis_extra' => $request->nama_jenis_extra,
+            'is_accepted' => $cek,
         ]);
 
         return response()->json($post);

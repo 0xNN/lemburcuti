@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('rencana_cuti', App\Http\Controllers\RencanaCutiController::class);
 	Route::resource('riwayat_lembur', App\Http\Controllers\RiwayatPengajuanLemburController::class);
 	Route::resource('riwayat_cuti', App\Http\Controllers\RiwayatPengajuanCutiController::class);
+	Route::resource('status_pegawai', App\Http\Controllers\StatusPegawaiController::class);
 });
 
 

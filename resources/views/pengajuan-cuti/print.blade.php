@@ -69,7 +69,7 @@
     <table class="table table-sm table-bordered">
       <tr>
         <td width="30%">Jenis Cuti yang Diminta</td>
-        <td>{{ $pengajuan_cuti->jenis_cuti_extra->nama_jenis }}</td>
+        <td>{{ ($pengajuan_cuti->jenis_cuti_extra == null) ? '': $pengajuan_cuti->jenis_cuti_extra->nama_jenis }}</td>
       </tr>
       <tr>
         <td width="30%">Tgl mulai</td>

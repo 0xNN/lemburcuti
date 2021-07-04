@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StatusPegawai;
 use App\Models\Jabatan;
 use App\Models\Jurusan;
 use App\Models\Pegawai;
@@ -61,7 +62,7 @@ class PegawaiController extends Controller
         })->get();
 
         // dd($users);
-        
+        $status_pegawais = StatusPegawai::all();
         $perintah_lembur = HomeController::cek_perintah_lembur();
         return view('pegawai.index', compact(
             'unit_kerjas',
@@ -71,7 +72,8 @@ class PegawaiController extends Controller
             'penempatans',
             'users',
             'pegawai',
-            'perintah_lembur'
+            'perintah_lembur',
+            'status_pegawais'
         ));
     }
 
@@ -108,6 +110,7 @@ class PegawaiController extends Controller
             'jurusan_id' => $request->jurusan_id,
             'jabatan_id' => $request->jabatan_id,
             'penempatan_id' => $request->penempatan_id,
+            'status_pegawai_id' => $request->status_pegawai_id,
             'user_id' => (auth()->user()->is_admin == 1) ? $request->user_id : auth()->user()->id,
         ]);
 

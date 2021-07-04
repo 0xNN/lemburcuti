@@ -11,15 +11,9 @@
       <div class="modal-body">
         <input type="hidden" name="id" id="id">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <div class="form-group">
-              <input type="text" name="nama_jenis_extra" id="nama_jenis_extra" class="form-control" placeholder="Nama Jenis Extra">
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <input type="checkbox" name="is_accepted" id="is_accepted" class="form-check-input">
-              <label class="form-check-label" for="is_accepted">Untuk Pegawai Kontrak?</label>
+              <input type="text" name="nama_status" id="nama_status" class="form-control" placeholder="Nama Status">
             </div>
           </div>
         </div>

@@ -159,6 +159,12 @@
                 <p>{{ __('Rencana Cuti') }}</p>
               </a>
             </li>
+            <li class="nav-item{{ $activePage == 'status-pegawai' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('status_pegawai.index') }}">
+                <i class="material-icons">tab</i>
+                <p>{{ __('Status Pegawai') }}</p>
+              </a>
+            </li>
           </ul>
         </div>
       </li>

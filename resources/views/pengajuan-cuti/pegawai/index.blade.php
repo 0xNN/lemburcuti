@@ -73,6 +73,7 @@
                   <p><small>Sisa Cuti : {{ ($sisa_cuti == null) ? $maksimum_cuti->total_maksimum : $sisa_cuti->sisa_cuti }}</small></p>
                 </div>
                 <div class="card-body">
+                  <p class="text-danger">Pada <b>JENIS CUTI EXTRA, NO HP EXTRA, ALAMAT EXTRA, DAN KETERANGAN EXTRA</b> jika kosong isi dengan (-)</p>
                   <input type="hidden" name="id" id="id">
                   <div class="row">
                     <div class="col-sm-12">
@@ -169,12 +170,13 @@
                       </div>
                     </div>
                   </div>
-                  <small>Keterangan Extra</small>
+                  <small>Keterangan Extra <span class="text-warning">(optional)</span></small>
                   <div class="row">
                     <div class="col-sm-3">
                       <div class="form-group">
                         <select name="jenis_cuti_extra_id" id="jenis_extra_cuti_id" class="form-control">
                           <option>-- PILIH JENIS CUTI EXTRA</option>
+                          <option value="0">-</option>
                           @foreach ($jenis_cuti_extras as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_jenis_extra }}</option>
                           @endforeach

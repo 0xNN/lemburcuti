@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="row mt-3">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <div class="form-group">
               <select name="pendidikan_id" id="pendidikan_id" class="form-control">
                 <option>-- PENDIDIKAN --</option>
@@ -101,12 +101,22 @@
               </select>
             </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <div class="form-group">
               <select name="jurusan_id" id="jurusan_id" class="form-control">
                 <option>-- JURUSAN --</option>
                 @foreach ($jurusans as $item)
                   <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <select name="status_pegawai_id" id="status_pegawai_id" class="form-control">
+                <option>-- STATUS PEGAWAI --</option>
+                @foreach ($status_pegawais as $item)
+                  <option value="{{ $item->id }}">{{ $item->nama_status }}</option>
                 @endforeach
               </select>
             </div>

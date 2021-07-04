@@ -121,7 +121,7 @@
         jenis_cuti_id = "";
       }
 
-      $(this).attr('disabled', true);
+      $(this).prop('disabled', true);
       $.ajax({
         type: 'GET',
         url: '{{ url('/')  }}'+'/laporan/cuti/print/'+jenis_cuti_id+'/'+tgl_pengajuan,
@@ -129,7 +129,10 @@
           responseType: 'blob'
         },
         success: function(response){
-          $('#button-cuti').removeAttr('disabled');
+          $('#button-cuti').prop('disabled', false);
+          const blob_file = response;
+          const file_url = URL.createObjectURL(blob_file);
+          window.open(file_url);
         },
         error: function(blob){
           console.log(blob);
@@ -145,7 +148,7 @@
         unit_kerja_id = "";
       }
 
-      $(this).attr('disabled', true);
+      $(this).prop('disabled', true);
       $.ajax({
         type: 'GET',
         url: '{{ url('/')  }}'+'/laporan/lembur/print/'+unit_kerja_id+'/'+tgl_pengajuan,
@@ -153,7 +156,10 @@
           responseType: 'blob'
         },
         success: function(response){
-          $('#button-lembur').removeAttr('disabled');
+          $('#button-lembur').prop('disabled', false);
+          const blob_file = response;
+          const file_url = URL.createObjectURL(blob_file);
+          window.open(file_url); // open file in new tab
         },
         error: function(blob){
           console.log(blob);
