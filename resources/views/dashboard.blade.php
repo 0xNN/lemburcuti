@@ -80,6 +80,10 @@
           <p class="lead">Hai, {{ auth()->user()->name }}</p>
           <hr class="my-4">
           <p>Aplikasi ini merupakan aplikasi pengajuan cuti dan perintah lembur.</p>
+          <div class="alert alert-info alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ $msg }}</strong>
+          </div>
           <p class="lead">
             <a class="btn btn-primary" href="{{ route('pengajuan_cuti.index') }}" role="button">Ajukan Cuti</a>
             <a class="btn btn-success" href="{{ route('pengajuan_lembur.index') }}" role="button">Cek Perintah Lembur</a>

@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('pegawai/data/result', [App\Http\Controllers\PegawaiController::class, 'get_pegawai'])->name('pegawai.get_pegawai');
 	Route::get('pengajuan_lembur/data/print/{id}', [App\Http\Controllers\PengajuanLemburController::class, 'print'])->name('pengajuan_lembur.print');
 	Route::get('pengajuan_cuti/data/print/{id}', [App\Http\Controllers\PengajuanCutiController::class, 'print'])->name('pengajuan_cuti.print');
+	Route::get('riwayat_cuti/data/print/{kode_pengajuan}', [App\Http\Controllers\RiwayatPengajuanCutiController::class, 'print'])->name('riwayat_cuti.print');
 	Route::get('riwayat_lembur/data/print/{kode_pengajuan}', [App\Http\Controllers\RiwayatPengajuanLemburController::class, 'print'])->name('riwayat_lembur.print');
 	Route::get('pegawai/get/unit_kerja/{id}', [App\Http\Controllers\PegawaiController::class, 'get_pegawai_per_unit']);
 	Route::get('laporan', [App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');

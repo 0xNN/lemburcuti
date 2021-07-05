@@ -50,13 +50,35 @@ class HomeController extends Controller
         $total_pengajuan_lembur = $this->total_pengajuan_lembur();
 
         $perintah_lembur = $this->cek_perintah_lembur();
+        $status_cuti = $this->cek_pengajuan_cuti();
 
-        return view('dashboard',compact(
-            'total_pegawai',
-            'total_pengajuan_cuti',
-            'total_pengajuan_lembur',
-            'perintah_lembur'
-        ));
+        if(auth()->user()->is_admin == 1) 
+        {
+            return view('dashboard',compact(
+                'total_pegawai',
+                'total_pengajuan_cuti',
+                'total_pengajuan_lembur',
+                'perintah_lembur',
+                'status_cuti'
+            ));
+        } else {
+            
+            if($status_cuti->status_pengajuan == 1)
+            {
+                $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' disetujui.';
+            } else {
+                $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' ditolak.';
+            }
+
+            return view('dashboard',compact(
+                'total_pegawai',
+                'total_pengajuan_cuti',
+                'total_pengajuan_lembur',
+                'perintah_lembur',
+                'status_cuti',
+                'msg'
+            ));
+        }
     }
 
     public function total_pegawai()
@@ -80,7 +102,6 @@ class HomeController extends Controller
     public static function cek_perintah_lembur()
     {
         $pegawai_id = Pegawai::where('user_id', auth()->user()->id)->first();
-        //dd($pegawai_id);
         $perintah_lembur = PengajuanLembur::join('pengajuan_lembur_details','pengajuan_lembur_details.pengajuan_lembur_id','pengajuan_lemburs.id')
         ->where('pegawai_id',$pegawai_id->id)
         ->where('is_finish', 0)
@@ -88,5 +109,15 @@ class HomeController extends Controller
         ->first();
 
         return $perintah_lembur;
+    }
+
+    public static function cek_pengajuan_cuti()
+    {
+        $pegawai_id = Pegawai::where('user_id', auth()->user()->id)->first();
+        $status_cuti = PengajuanCuti::where('pegawai_id', $pegawai_id->id)
+        ->orderBy('id','desc')
+        ->first();
+
+        return $status_cuti;
     }
 }

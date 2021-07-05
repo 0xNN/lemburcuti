@@ -23,6 +23,7 @@
                   <th>Tgl Mulai/Selesai</th>
                   <th>Tgl Pengajuan</th>
                   <th>Status</th>
+                  <th>User</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -70,7 +71,8 @@
         {data: 'tgl_mulai_selesai_cuti', name: 'tgl_mulai_selesai_cuti'},
         {data: 'tgl_pengajuan', name: 'tgl_pengajuan'},
         {data: 'status_perubahan', name: 'status_perubahan'},
-        {data: 'user_modify', name: 'user_modify'}
+        {data: 'user_modify', name: 'user_modify'},
+        {data: 'action', name: 'action', searchable: false, orderable: false}
       ],
       columnDefs: [ {
           className: 'dtr-control',

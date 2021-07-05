@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengajuanCuti;
+use App\Models\PengajuanCutiDetail;
 use App\Models\Pegawai;
 use App\Models\RiwayatPengajuanCuti;
 use Illuminate\Http\Request;
@@ -46,6 +48,14 @@ class RiwayatPengajuanCutiController extends Controller
                                 return '<div class="badge badge-success">setuju</div>';
                             }
     
+                        })
+                        ->editColumn('action', function($row) {
+                            if($row->status_perubahan == 'setuju')
+                            {
+                                $button = '<a target="_blank" href="'.route('riwayat_cuti.print', $row->kode_pengajuan).'" name="view" id="'.$row->kode_pengajuan.'" class="view btn btn-info btn-sm"><i class="material-icons">print</i></a>';
+
+                                return $button;
+                            }
                         })
                         ->rawColumns(['action','tgl_mulai_selesai_cuti','status_perubahan'])
                         ->make(true);
@@ -155,5 +165,62 @@ class RiwayatPengajuanCutiController extends Controller
     public function destroy(RiwayatPengajuanCuti $riwayatPengajuanCuti)
     {
         //
+    }
+
+    public function print($kode_pengajuan)
+    {
+        $pengajuan_cuti = PengajuanCuti::where('kode_pengajuan', $kode_pengajuan)->first();
+
+        $hari = $this->hari(date('D', strtotime($pengajuan_cuti->tgl_pengajuan)));
+        $tanggal = $this->tanggal($pengajuan_cuti->tgl_pengajuan);
+        $pengajuan_cuti_detail = PengajuanCutiDetail::where('pengajuan_cuti_id', $pengajuan_cuti->id)->get();
+
+        return view('pengajuan-cuti.print', compact(
+            'pengajuan_cuti_detail',
+            'pengajuan_cuti',
+            'tanggal',
+            'hari'
+        ));
+    }
+
+    public function tanggal($tanggal)
+    {
+        $bulan = array (1 =>   'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+            );
+        $split = explode('-', $tanggal);
+        return $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+    }
+
+    public function hari($day)
+    {
+        switch($day) {
+            case 'Sun':
+                return 'Minggu';
+            case 'Mon':
+                return 'Senin';
+            case 'Tue':
+                return 'Selasa';
+            case 'Wed':
+                return 'Rabu';
+            case 'Thu':
+                return 'Kamis';
+            case 'Fri':
+                return 'Jum\'at';
+            case 'Sat':
+                return 'Sabtu';
+            default:
+                return 'Not Found';
+        }
     }
 }
