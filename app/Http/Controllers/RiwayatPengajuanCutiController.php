@@ -93,7 +93,7 @@ class RiwayatPengajuanCutiController extends Controller
                             }
     
                         })
-                        ->rawColumns(['action','tgl_mulai_selesai_cuti','status_perubahan'])
+                        ->rawColumns(['tgl_mulai_selesai_cuti','status_perubahan'])
                         ->make(true);
             }
     
