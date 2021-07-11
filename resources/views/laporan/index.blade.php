@@ -129,6 +129,7 @@
           responseType: 'blob'
         },
         success: function(response){
+          console.log(response);
           $('#button-cuti').prop('disabled', false);
           const blob_file = response;
           const file_url = URL.createObjectURL(blob_file);

@@ -7,8 +7,8 @@
       <div class="col-md-12">
         <div class="card ">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">{{ __('Riwayat Cuti') }}</h4>
-            <p class="card-category">{{ __('Daftar Riwayat Pengajuan Cuti') }}</p>
+            <h4 class="card-title">{{ __('Riwayat Lembur') }}</h4>
+            <p class="card-category">{{ __('Daftar Riwayat Pengajuan Lembur') }}</p>
           </div>
           <div class="card-body ">              
             <table id="dt-riwayat-lembur" class="table table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
