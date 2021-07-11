@@ -52,7 +52,7 @@ class HomeController extends Controller
         $perintah_lembur = $this->cek_perintah_lembur();
         $status_cuti = $this->cek_pengajuan_cuti();
 
-        if(auth()->user()->is_admin == 1) 
+        if(auth()->user()->is_admin == 1 || auth()->user()->is_admin == 2) 
         {
             return view('dashboard',compact(
                 'total_pegawai',
