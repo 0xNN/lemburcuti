@@ -6,7 +6,11 @@
   -->
   <div class="logo">
     <a href="{{ url('/home') }}" class="simple-text logo-normal">
-      {{ __('Admin Panel') }}
+      @if (auth()->user()->is_admin == 1)
+        {{ __('Admin Panel') }}
+      @else
+        {{ __('User Panel') }}
+      @endif
     </a>
   </div>
   <div class="sidebar-wrapper">
