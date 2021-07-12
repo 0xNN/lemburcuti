@@ -97,7 +97,7 @@ class RiwayatPengajuanCutiController extends Controller
                         ->make(true);
             }
     
-            return view('riwayat-cuti.index');
+            return view('riwayat-cuti.index-admin');
         }
     }
 
