@@ -102,6 +102,9 @@ class HomeController extends Controller
     public static function cek_perintah_lembur()
     {
         $pegawai_id = Pegawai::where('user_id', auth()->user()->id)->first();
+        if($pegawai_id == null) {
+            return null;
+        }
         $perintah_lembur = PengajuanLembur::join('pengajuan_lembur_details','pengajuan_lembur_details.pengajuan_lembur_id','pengajuan_lemburs.id')
         ->where('pegawai_id',$pegawai_id->id)
         ->where('is_finish', 0)
