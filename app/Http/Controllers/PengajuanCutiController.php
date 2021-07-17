@@ -146,7 +146,7 @@ class PengajuanCutiController extends Controller
                 return back()->with('failed', 'Total Cuti anda melebihi sisa cuti');
             }
 
-dd($request->jenis_cuti_extra_id);
+//dd($request->jenis_cuti_extra_id);
             $post = PengajuanCuti::create([
                 'kode_pengajuan'                    => 'PC-'.round(microtime(true) * 1000),
                 'pegawai_id'                        => $request->pegawai_id,
