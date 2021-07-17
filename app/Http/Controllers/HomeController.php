@@ -122,6 +122,9 @@ class HomeController extends Controller
     public static function cek_pengajuan_cuti()
     {
         $pegawai_id = Pegawai::where('user_id', auth()->user()->id)->first();
+        if($pegawai_id == null) {
+            return null;
+        }
         $status_cuti = PengajuanCuti::where('pegawai_id', $pegawai_id->id)
         ->orderBy('id','desc')
         ->first();
