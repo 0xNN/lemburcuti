@@ -57,4 +57,26 @@ class Pegawai extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function pengajuan_cuti($pegawai_id)
+    {
+        $pengajuan_cuti = PengajuanCuti::where('pegawai_id', $pegawai_id)->first();
+
+        if($pengajuan_cuti == null) {
+            return null;
+        }
+
+        return $pengajuan_cuti;
+    }
+
+    public static function perintah_lembur($pegawai_id)
+    {
+        $perintah_lembur = PengajuanLemburDetail::where('pegawai_id', $pegawai_id)->first();
+        
+        if($perintah_lembur == null) {
+            return null;
+        }
+
+        return $perintah_lembur;
+    }
 }

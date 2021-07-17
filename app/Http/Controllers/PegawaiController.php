@@ -28,7 +28,9 @@ class PegawaiController extends Controller
                     ->addColumn('action', function($row){
                         $button = '<div class="btn-group btn-group-sm" role="group">';
                         $button .= '<button href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="material-icons">mode_edit</i></button>';
-                        $button .= '<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><i class="material-icons">delete</i></button>';
+                        if(Pegawai::pengajuan_cuti($row->id) == null && Pegawai::perintah_lembur($row->id) == null) {
+                            $button .= '<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><i class="material-icons">delete</i></button>';
+                        }
                         $button .= '</div>';
 
                         if($row->user->is_admin == 1)
