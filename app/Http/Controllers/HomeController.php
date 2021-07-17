@@ -63,11 +63,16 @@ class HomeController extends Controller
             ));
         } else {
             
-            if($status_cuti->status_pengajuan == 1)
+            if($status_cuti != null)
             {
-                $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' disetujui.';
+                if($status_cuti->status_pengajuan == 1)
+                {
+                    $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' disetujui.';
+                } else {
+                    $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' ditolak.';
+                }
             } else {
-                $msg = 'Pengajuan cuti terakhir '.$status_cuti->tgl_mulai_cuti.' s.d '.$status_cuti->tgl_selesai_cuti.' ditolak.';
+                $msg = 'Anda belum pernah melakukan cuti.';
             }
 
             return view('dashboard',compact(
