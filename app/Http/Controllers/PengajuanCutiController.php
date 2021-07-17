@@ -160,7 +160,7 @@ class PengajuanCutiController extends Controller
                 'alamat_lengkap_selama_cuti'        => $request->alamat_lengkap_selama_cuti,
                 'no_hp_selama_cuti'                 => $request->no_hp_selama_cuti,
                 'keterangan'                        => $request->keterangan,
-                'jenis_cuti_extra_id'               => ($request->jenis_cuti_extra_id == "0") ? null : $request->jenis_cuti_extra_id,
+                'jenis_cuti_extra_id'               => ($request->jenis_cuti_extra_id == 0) ? 0 : $request->jenis_cuti_extra_id,
                 'tgl_mulai_extra_cuti'              => ($request->tgl_mulai_extra_cuti == null) ? null: $request->tgl_mulai_extra_cuti,
                 'alamat_lengkap_extra_selama_cuti'  => $request->alamat_lengkap_extra_selama_cuti,
                 'no_hp_extra_selama_cuti'           => $request->no_hp_extra_selama_cuti,
