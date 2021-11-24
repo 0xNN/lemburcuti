@@ -71,6 +71,7 @@
                   <h4 class="card-title">{{ __('Cuti') }}</h4>
                   <p class="card-category">{{ __('Form Pengajuan Cuti') }} </p>
                   <p><small>Sisa Cuti : {{ ($sisa_cuti == null) ? $maksimum_cuti->total_maksimum : $sisa_cuti->sisa_cuti }}</small></p>
+                  <input type="hidden" name="sisa_cutii" id="sisa_cutii" value="{{ ($sisa_cuti == null) ? $maksimum_cuti->total_maksimum : $sisa_cuti->sisa_cuti }}">
                 </div>
                 <div class="card-body">
                   <p class="text-danger">Pada <b>JENIS CUTI EXTRA, NO HP EXTRA, ALAMAT EXTRA, DAN KETERANGAN EXTRA</b> jika kosong isi dengan (-)</p>
@@ -277,13 +278,21 @@
       format: 'YYYY-MM-DD',
       time: false,
       minDate: new Date(),
+    }).on('change', function(e, date) {
+      console.log($(this).val());
+      console.log(date['_d']);
+      console.log($('#sisa_cutii').val());
+      var maxDate = $('#sisa_cutii').val();
+      var max = date + parseInt(maxDate);
+      console.log(max);
+      $('#tgl_selesai_cuti').bootstrapMaterialDatePicker({
+        format: 'YYYY-MM-DD',
+        time: false,
+        minDate: new Date(),
+        maxDate: max
+      });
     });
 
-    $('#tgl_selesai_cuti').bootstrapMaterialDatePicker({
-      format: 'YYYY-MM-DD',
-      time: false,
-      minDate: new Date(),
-    });
 
     $('#tgl_mulai_extra_cuti').bootstrapMaterialDatePicker({
       format: 'YYYY-MM-DD',
